@@ -18,10 +18,16 @@ from django.contrib import admin
 from django.urls import path, include
 from . import views
 
+# Customize admin site text
+admin.site.site_header = "Blog CMS Administration"
+admin.site.site_title = "Blog CMS Admin"
+admin.site.index_title = "Welcome to Blog CMS"
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("", views.home),
     path("blog/", include("blog.urls")),
     path('api/', include('apps.api.urls')),
+    path('ckeditor/', include('ckeditor_uploader.urls')) if 'ckeditor_uploader' in admin.site._registry else path('', lambda r: None),
+    path("__reload__/", include("django_browser_reload.urls")),
 ]

@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     
     # Custom apps
     'rest_framework',
+    'ckeditor',
     'apps.blog',
     'apps.api',
 ]
@@ -134,3 +135,12 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# CKEditor Configuration
+# CKEDITOR_CONFIGS = {
+#     'default': {
+#         'toolbar': 'full',
+#         'height': 350,
+#         'width': '150%  ',
+#     },
+# }
