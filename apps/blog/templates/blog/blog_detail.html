@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ post.title }} - Blog</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background: #f5f5f5; padding: 20px; }
+        .container { max-width: 900px; margin: 0 auto; background: white; padding: 40px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .back-link { color: #007bff; text-decoration: none; margin-bottom: 20px; display: inline-block; }
+        .back-link:hover { text-decoration: underline; }
+        h1 { color: #333; margin-bottom: 20px; }
+        .meta { color: #666; font-size: 14px; margin-bottom: 30px; padding-bottom: 20px; border-bottom: 1px solid #eee; }
+        .content { line-height: 1.8; color: #333; white-space: pre-wrap; font-size: 16px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="{% url 'blog_list' %}" class="back-link">← Back to all posts</a>
+        
+        <article>
+            <h1>{{ post.title }}</h1>
+            <div class="meta">
+                <strong>Author:</strong> {{ post.author }} | 
+                <strong>Published:</strong> {{ post.date_created|date:"F j, Y" }}
+                {% if post.date_updated != post.date_created %}
+                | <strong>Updated:</strong> {{ post.date_updated|date:"F j, Y" }}
+                {% endif %}
+            </div>
+            <div class="content">{{ post.content }}</div>
+        </article>
+    </div>
+</body>
+</html>
