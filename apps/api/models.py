@@ -9,6 +9,8 @@ class Post(models.Model):
     content = RichTextField(help_text="Write your blog content here")
     slug = models.SlugField(unique=True, max_length=200, help_text="URL-friendly version of title (auto-filled)")
     category = models.CharField(max_length=100, default='Uncategorized', help_text="Category of the blog post")
+    tags = models.CharField(max_length=200, blank=True, help_text="Comma-separated tags for the post")
+    featured_image = models.ImageField(upload_to='blog_images/', blank=True, null=True, help_text="Upload a featured image for this post")
     date_created = models.DateTimeField(auto_now_add=True)
     date_updated = models.DateTimeField(auto_now=True)
 
@@ -19,4 +21,22 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Comment(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments', help_text="The blog post this comment belongs to")
+    name = models.CharField(max_length=100, help_text="Your name")
+    email = models.EmailField(help_text="Your email (will not be displayed publicly)")
+    content = models.TextField(help_text="Your comment")
+    is_approved = models.BooleanField(default=True, help_text="Approve this comment to display publicly")
+    date_created = models.DateTimeField(auto_now_add=True)
+    
+    class Meta:
+        ordering = ['-date_created']
+        verbose_name = 'Comment'
+        verbose_name_plural = 'Comments'
+    
+    def __str__(self):
+        return f'Comment by {self.name} on {self.post.title}'
+    
     

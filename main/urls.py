@@ -16,12 +16,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
 from . import views
 
 # Customize admin site text
-admin.site.site_header = "Blog CMS Administration"
-admin.site.site_title = "Blog CMS Admin"
-admin.site.index_title = "Welcome to Blog CMS"
+admin.site.site_header = "The 4Null CMS Admin"
+admin.site.site_title = "The 4Null CMS Admin"
+admin.site.index_title = "Welcome to The 4Null CMS"
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -31,3 +33,7 @@ urlpatterns = [
     path('ckeditor/', include('ckeditor_uploader.urls')) if 'ckeditor_uploader' in admin.site._registry else path('', lambda r: None),
     path("__reload__/", include("django_browser_reload.urls")),
 ]
+
+# Serve media files in development
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
