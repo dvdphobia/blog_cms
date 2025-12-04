@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     # Custom apps
     'rest_framework',
     'ckeditor',
+    'ckeditor_uploader',
     'apps.blog',
     'apps.api',
 ]
@@ -131,16 +132,31 @@ STATICFILES_DIRS = [BASE_DIR / "resources"]
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
+# CKEditor upload path
+CKEDITOR_UPLOAD_PATH = 'uploads/'
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # CKEditor Configuration
-# CKEDITOR_CONFIGS = {
-#     'default': {
-#         'toolbar': 'full',
-#         'height': 350,
-#         'width': '150%  ',
-#     },
-# }
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'full',
+        'height': 400,
+        'width': '100%',
+        'filebrowserUploadUrl': '/ckeditor/upload/',
+        'filebrowserBrowseUrl': '/ckeditor/browse/',
+        'filebrowserImageBrowseUrl': '/ckeditor/browse/',
+        'filebrowserImageUploadUrl': '/ckeditor/upload/',
+        'extraPlugins': ','.join([
+            'uploadimage',
+            'image2',
+        ]),
+    },
+}
+
+# Allow CKEditor image uploads
+CKEDITOR_ALLOW_NONIMAGE_FILES = False
+CKEDITOR_IMAGE_BACKEND = 'pillow'

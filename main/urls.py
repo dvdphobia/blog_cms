@@ -30,7 +30,7 @@ urlpatterns = [
     path("", views.home),
     path("blog/", include("blog.urls")),
     path('api/', include('apps.api.urls')),
-    path('ckeditor/', include('ckeditor_uploader.urls')) if 'ckeditor_uploader' in admin.site._registry else path('', lambda r: None),
+    path('ckeditor/', include('ckeditor_uploader.urls')),
     path("__reload__/", include("django_browser_reload.urls")),
 ]
 
